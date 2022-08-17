@@ -6,16 +6,18 @@ public class TimerImpl implements Timer, Runnable {
 
     private int time;
     private int button;
+    private boolean threadRunning;
 
     public TimerImpl(int coolDownInSec, int button) {
         this.time = coolDownInSec;
         this.button = button;
     }
+
     @Override
     public void run() {
         String text = SpellTimerUI.spellButton[this.button].getText();
-        System.out.println(time);
-        while (time > 0) {
+        while (this.time > 0) {
+
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -30,9 +32,21 @@ public class TimerImpl implements Timer, Runnable {
 
     @Override
     public void timer() {
-        Thread countdown = new Thread(new TimerImpl(this.time,this.button));
-        countdown.start();
 
+        Thread countdown = new Thread(new TimerImpl(this.time, this.button));
+        if (threadRunning){
+            countdown.stop();
+            threadRunning=false;
+        }else {
+            countdown.start();
+            threadRunning = true;
+        }
 
+    }
+
+    @Override
+    public void resetTimer() {
+        this.time = 0;
+        timer();
     }
 }

@@ -21,7 +21,7 @@ public class SpellTimerUI {
     private static String[] optionsToChoose = {"Flash", "Ignite", "Teleport", "Exhaust", "Heal", "Cleanse", "Ghost", "Smite", "Barrier"};
     private static JComboBox[] spellList = new JComboBox[10];
     public static JButton[] spellButton = new JButton[10];
-
+    private static Timer[] cooldown = new TimerImpl[10];
 
 
     public static void main(String args[]) {
@@ -47,6 +47,7 @@ public class SpellTimerUI {
         bReset.setText("Reset");
         frame.add(bReset);
 
+
         for (int i = 0; i < spellList.length; i++) {
             spellList[i] = new JComboBox(optionsToChoose);
             frame.add(spellList[i]);
@@ -68,9 +69,12 @@ public class SpellTimerUI {
                     Icon icon = new ImageIcon(FILENAME + selectedFruit.toLowerCase(Locale.ROOT) + ".png");
                     spellButton[i].setText(selectedFruit);
                     spellButton[i].setIcon(icon);
+                    cooldown[i] = new TimerImpl(spellCoolDown.get(selectedFruit),i);
                     frame.add(spellButton[i]);
-                }
 
+
+                }
+                frame.setVisible(false);
                 frame.setVisible(true);
             }
         });
@@ -80,6 +84,7 @@ public class SpellTimerUI {
             public void actionPerformed(ActionEvent e) {
                 for (int i = 0; i < spellList.length; i++) {
                     frame.remove(spellButton[i]);
+                    cooldown[i].resetTimer();
                     frame.add(spellList[i]);
                 }
                 frame.setVisible(false);
@@ -90,71 +95,61 @@ public class SpellTimerUI {
         spellButton[0].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Timer cooldown = new TimerImpl(spellCoolDown.get(spellButton[0].getText()), 0);
-                cooldown.timer();
+                cooldown[0].timer();
             }
         });
         spellButton[1].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Timer cooldown = new TimerImpl(spellCoolDown.get(spellButton[1].getText()), 1);
-                cooldown.timer();
+                cooldown[1].timer();
             }
         });
         spellButton[2].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Timer cooldown = new TimerImpl(spellCoolDown.get(spellButton[2].getText()), 2);
-                cooldown.timer();
+                cooldown[2].timer();
             }
         });
         spellButton[3].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Timer cooldown = new TimerImpl(spellCoolDown.get(spellButton[3].getText()), 3);
-                cooldown.timer();
+                cooldown[3].timer();
             }
         });
         spellButton[4].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Timer cooldown = new TimerImpl(spellCoolDown.get(spellButton[4].getText()), 4);
-                cooldown.timer();
+                cooldown[4].timer();
             }
         });
         spellButton[5].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Timer cooldown = new TimerImpl(spellCoolDown.get(spellButton[5].getText()), 5);
-                cooldown.timer();
+                cooldown[5].timer();
             }
         });
         spellButton[6].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Timer cooldown = new TimerImpl(spellCoolDown.get(spellButton[6].getText()), 6);
-                cooldown.timer();
+                cooldown[6].timer();
             }
         });
         spellButton[7].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Timer cooldown = new TimerImpl(spellCoolDown.get(spellButton[7].getText()), 7);
-                cooldown.timer();
+                cooldown[7].timer();
             }
         });
         spellButton[8].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Timer cooldown = new TimerImpl(spellCoolDown.get(spellButton[8].getText()), 8);
-                cooldown.timer();
+                cooldown[8].timer();
             }
         });
         spellButton[9].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Timer cooldown = new TimerImpl(spellCoolDown.get(spellButton[9].getText()), 9);
-                cooldown.timer();
+                cooldown[9].timer();
             }
         });
 

@@ -7,4 +7,8 @@ public interface Timer {
      */
     void timer();
 
+    /**
+     * resets the timer to 0
+     */
+    void resetTimer();
 }
